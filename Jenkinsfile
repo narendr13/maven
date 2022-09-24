@@ -21,9 +21,9 @@ pipeline{
     				sh """
 					scp -o StrictHostKeyChecking=no target/project.war ubuntu@10.1.1.154:/opt/tomcat/webapps/
 					
-					shh ubuntu@10.1.1.154 /opt/tomcat/bin/shutdown.sh
+					ssh ubuntu@10.1.1.154 /opt/tomcat/bin/shutdown.sh
 					
-					shh ubuntu@10.1.1.154 /opt/tomcat/bin/startup.sh
+					ssh ubuntu@10.1.1.154 /opt/tomcat/bin/startup.sh
 				"""
 			}
 		}
