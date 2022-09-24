@@ -11,15 +11,15 @@ pipeline{
 		}
 		stage("Maven Build"){
 			steps{
-				sh "mvn install package"
-				sh "mv /var/lib/jenkins/workspace/pipeline-demo/target/*.war /var/lib/jenkins/workspace/pipeline-demo/target/project.war"
+				sh "mvn test package"
+				sh "mv target/*.war target/project.war"
 			}
 		}
 		stage("deploy"){
 			steps{
 			sshagent(['tomcat']) {
     				sh """
-					scp -o StrictHostKeyChecking=no /var/lib/jenkins/workspace/pipeline-demo/target/project.war ubuntu@10.1.1.154:/opt/tomcat/webapps/
+					scp -o StrictHostKeyChecking=no target/project.war ubuntu@10.1.1.154:/opt/tomcat/webapps/
 					
 					ssh ubuntu@10.1.1.154 /opt/tomcat/bin/shutdown.sh
 					
