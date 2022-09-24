@@ -16,6 +16,7 @@ pipeline{
 			}
 		}
 		stage("deploy"){
+			steps{
 			sshagent(['tomcat']) {
     				sh """
 					scp -o StrictHostKeyChecking=no target/project.war ubuntu@10.1.1.154:/opt/tomcat/webapps/
@@ -25,6 +26,7 @@ pipeline{
 					shh ubuntu@10.1.1.154 /opt/tomcat/bin/startup.sh
 				"""
 			}
+		}
 		}
 	}
 }
