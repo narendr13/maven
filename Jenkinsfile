@@ -12,7 +12,7 @@ pipeline{
 		stage("Maven Build"){
 			steps{
 				sh "mvn -Dmaven.test.failure.ignore=true install"
-				sh "mv target/*.war target/"
+				
 			}
 		}
 		stage("deploy"){
