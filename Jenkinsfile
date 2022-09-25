@@ -12,14 +12,14 @@ pipeline{
 		stage("Maven Build"){
 			steps{
 				sh "mvn -Dmaven.test.failure.ignore=true install"
-				sh "mv target/*.war target/project.war"
+				sh "mv target/*.war target/"
 			}
 		}
 		stage("deploy"){
 			steps{
 			sshagent(['tomcat']) {
     				sh """
-					scp -o StrictHostKeyChecking=no target/project.war ubuntu@10.1.1.154:/opt/tomcat/webapps/
+					scp -o StrictHostKeyChecking=no target/*.war ubuntu@10.1.1.154:/opt/tomcat/webapps/
 					
 					ssh ubuntu@10.1.1.154 /opt/tomcat/bin/shutdown.sh
 					
